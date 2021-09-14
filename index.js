@@ -1,6 +1,6 @@
 const express = require('express');
-const morgan = require('morgan');
-const app = express();
+    morgan = require('morgan');
+    app = express();
 
 let myTopTenMovies = [{
     title: 'Movie 1',
