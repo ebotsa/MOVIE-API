@@ -1,4 +1,5 @@
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
 
 let myTopTenMovies = [{
@@ -44,12 +45,12 @@ let myTopTenMovies = [{
 
 //GET route ‘movies’ that returns JSON Object
 app.get('/movies', (req, res) => {
- res.json(movies);
+ res.json(myTopTenMovies);
 });
  
 //GET route ‘text’ that returns default textual response
-app.get('/document', (req, res) => {
-res.send('public/document.html', { root: __movie_api });
+app.get('/documentation', (req, res) => {
+res.sendFile('public/documentation.html', { root: __dirname });
 });
 
 // Function for sending static files
@@ -62,4 +63,7 @@ app.use(morgan('common'));
 app.use((err, req, res, next) => {
  console.error(err.stack);
  res.status(500).send('Something broke!');
+});
+app.listen(8080, () => {
+console.log('Your app is listening on port 8080.');
 });
