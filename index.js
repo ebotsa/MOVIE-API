@@ -4,45 +4,65 @@ const app = express();
 bodyParser = require('body-parser'),
 	uuid = require('uuid');
 let movies = [{
-		title: 'Movie 1',
-		director: 'Director 1',
-		genre: 'Genre 1'
+		title: 'Mission: Impossible',
+		director: 'Brian De Palma',
+		genre: 'Action',
+		BirthYear: 1940,
+		ReleaseYear: 1996
 	}, {
-		title: 'Movie 2',
-		director: 'Director 2',
-		genre: 'Genre 1'
+		title: 'Atomic Blonde',
+		director: 'David Leitch',
+		genre: 'Action thriller',
+		BirthYear: 1975,
+		ReleaseYear: 2017
 	}, {
-		title: 'Movie 3',
-		director: 'Director 3',
-		genre: 'Genre 1'
+		title: 'Scott Pilgrim vs. The World',
+		director: 'Edgar Wright',
+		genre: 'Romance',
+		BirthYear: 1974,
+		ReleaseYear: 2010
 	}, {
-		title: 'movie 4',
-		director: 'Director 4',
-		genre: 'Genre 1'
+		title: 'The Spectacular Now',
+		director: 'James Ponsoldt',
+		genre: 'Romance',
+		BirthYear: 1978,
+		ReleaseYear: 2013
 	}, {
-		title: ' Movie 5',
-		director: 'Director 5',
-		genre: 'Genre 1'
+		title: 'Love, Simon',
+		director: 'Greg Berlanti',
+		genre: 'Romantic comedy-drama',
+		BirthYear: 1972,
+		ReleaseYear: (2018)
 	}, {
-		title: 'Movie 6',
-		director: 'Director 6',
-		genre: 'Genre 2'
+		title: 'The Big Sick',
+		director: 'Michael Showalter',
+		genre: 'Romantic comedy',
+		BirthYear: 1970,
+		ReleaseYear: 2017	
 	}, {
-		title: 'Movie 7',
-		director: 'Director 7',
-		genre: 'Genre 2'
+		title: 'Up',
+		director: 'Peter Hans Docter',
+		genre: 'Comedy',
+		BirthYear: 1968,
+		ReleaseYear: 2001
 	}, {
-		title: 'Movie 8',
-		director: 'Director 8',
-		genre: 'Genre 2'
+		title: 'Inside Out',
+		director: 'Peter Hans Docter',
+		genre: 'Comedy',
+		BirthYear: 1968,
+		ReleaseYear: 2015
 	}, {
-		title: 'Movie 9',
-		director: 'Director 9',
-		genre: 'Genre 2'
+		title: 'Anchorman: The Legend of Ron Burgundy',
+		director: 'Adam McKay',
+		genre: 'Satirical comedy movie',
+		BirthYear: 1968,
+		ReleaseYear: 2004
 	}, {
 		title: 'Sarafina',
 		director: 'Darrel Roodt',
-		genre: 'Drama, Musical'
+		genre: 'Drama, Musical',
+		BirthYear: 1962,
+		ReleaseYear: 1992
 	}, ],
 	users = [{
 		username: 'Sylvanus Agbor',
@@ -61,32 +81,32 @@ let movies = [{
 		id: '5'
 	}],
 	directors = [{
-		name: 'Director 1',
-		birthYear: '1984'
+		name: 'Brian De Palma',
+		birthYear: '1940'
 	}, {
-		name: 'Director 2',
-		birthYear: '1957'
+		name: 'David Leitch',
+		birthYear: '1975'
 	}, {
-		name: 'Director 3',
-		birthYear: '1982'
+		name: 'Edgar Wright',
+		birthYear: '1974'
 	}, {
-		name: 'Director 4',
+		name: 'James Ponsoldt',
+		birthYear: '1978'
+	}, {
+		name: 'Greg Berlanti',
+		birthYear: '1972'
+	}, {
+		name: 'Michael Showalter',
 		birthYear: '1970'
 	}, {
-		name: 'Director 5',
-		birthYear: '1948'
+		name: 'Peter Hans Docter',
+		birthYear: '1968'
 	}, {
-		name: 'Director 6',
-		birthYear: '1955'
+		name: 'Peter Hans Docter',
+		birthYear: '1968'
 	}, {
-		name: 'Director 7',
-		birthYear: '1966'
-	}, {
-		name: 'Director 8',
-		birthYear: '1977'
-	}, {
-		name: 'Director 9',
-		birthYear: '1953'
+		name: 'Adam McKay',
+		birthYear: '1968'
 	}, {
 		name: 'Darrel Roodt',
 		birthYear: '1962'
@@ -159,7 +179,7 @@ app.post('/users/:username/favorites', (req, res) => {
 		const message = 'Missing title in request body';
 		res.status(400).send(message);
 	} else {
-		res.send('Succesful POST request - new title added to favs.')
+		res.send('Succesful POST request - new title added to favorites.')
 	};
 });
 // Remove a movie from favorites
@@ -169,7 +189,7 @@ app.delete('/users/:username/favorites', (req, res) => {
 		const message = 'Missing title in request body';
 		res.status(400).send(message);
 	} else {
-		res.send('Succesful DELETE request - title removed from favs.')
+		res.send('Succesful DELETE request - title removed from favorites.')
 	};
 });
 // Update the username
