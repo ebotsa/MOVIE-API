@@ -40,14 +40,19 @@
 				<br>birthYear: 1962}</td>
 		</tr>
 		<tr>
-			<td>GET user by name </td>
+			<td>GET data about a single user by name </td>
 			<td>/users/:username</td>
 			<td>A JSON objects with user' data, e.g.:
-				<br>{name: Sylvanus Agbor},
-				<br>id: 1}</td>
+				<br>{name: 'Sylvanus Agbor',
+				<br>id: 1<br>
+				favMovies: 'Drama, Musical',<br>
+				email: 'XXXXXatyahoo.com',<br>
+				password: 'mmmmm_6'<br>}
+		</td>
 		</tr>
+
 		<tr>
-			<td>GET movie by title</td>
+			<td>GET data about a movie by title</td>
 			<td>/movies/:title</td>
 			<td>A JSON object with title's data, e.g.:
 				<br>{title: 'Sarafina',
@@ -55,14 +60,14 @@
 				<br>genre: Drama, Musical}</td>
 		</tr>
 		<tr>
-			<td>GET director by name</td>
+			<td>GET data about director by name</td>
 			<td>/directors/:name</td>
 			<td>A JSON object with directors's data, e.g.:
 				<br>{name: Darrell Roodt,
 				<br>birthYear: 1962}</td>
 		</tr>
 		<tr>
-			<td>GET genre by title</td>
+			<td>GET data about genre by title</td>
 			<td>/movies/:title</td>
 			<td>A JSON object with directors's data, e.g.:
 				<br>{genre: Drama, Musical }</td>
@@ -95,23 +100,21 @@
 				<br>director: Darrel Roodt
 				<br>genre: Drama, Musical }</td>
 			<td>/users/:username/favorites</td>
-			<td>Confirmation message</td>
+			<td>A text message indicating whether a title was successfully added</td>
 		</tr>
 		<tr>
 			<td>Remove (DELETE) a title from user's favs
 				<br>Input: user's id</td>
 			<td>/users/:username/favorites</td>
-			<td>Confirmation message</td>
+			<td>A text message indicating whether a title was successfully removed</td>
 		</tr>
 		<tr>
 			<td>Update (PUT) a username
 				<br>Input: new username</td>
 			<td>/users/:username</td>
-			<td>Confirmation message</td>
+			<td>A text message indicating whether a username was successfully updated</td>
 		</tr>
 	</table>
 </body>
 
 </html>
-
-

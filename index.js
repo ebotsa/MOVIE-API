@@ -63,23 +63,46 @@ let movies = [{
 		genre: 'Drama, Musical',
 		BirthYear: 1962,
 		ReleaseYear: 1992
-	}, ],
+	},],
+	
 	users = [{
 		username: 'Sylvanus Agbor',
-		id: '1'
+		id: '1',
+		birthYear: '1984',
+		favMovies: 'Drama, Musical',
+		email: 'XXXXX@yahoo.com',
+		password: 'mmmmm_6'
 	}, {
 		username: 'Blaise Okay',
-		id: '2'
+		id: '2',
+		birthYear: '1948',
+		favMovies: 'Comedy',
+		email: 'aaaaa@hotline.com',
+		password: 'fffff_4'
 	}, {
 		username: 'User 3',
-		id: '3'
+		id: '3',
+		birthYear: '1962',
+		favMovies: 'Drama, Musical',
+		email: 'sss@gmail.com',
+		password: 'zzzzz_6'
+		
 	}, {
 		username: 'User 4',
-		id: '4'
+		id: '4',
+		birthYear: '1955',
+		favMovies: 'Romance',
+		email: 'bbb@yahoo.com',
+		password: 'qqqqq_5'
 	}, {
 		username: 'User 5',
-		id: '5'
+		id: '5',
+		birthYear: '1992',
+		favMovies: 'Drama, Musical',
+		email: 'ccccc@yahoo.com',
+		password: 'yyyyy_5'
 	}],
+
 	directors = [{
 		name: 'Brian De Palma',
 		birthYear: '1940'
