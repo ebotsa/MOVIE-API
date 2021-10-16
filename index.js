@@ -1,240 +1,391 @@
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 const express = require('express');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 const morgan = require('morgan');
 const app = express();
-bodyParser = require('body-parser'),
+const bodyParser = require('body-parser'),
 	uuid = require('uuid');
+
+
 let movies = [{
-		title: 'Mission: Impossible',
-		director: 'Brian De Palma',
-		genre: 'Action',
-		BirthYear: 1940,
-		ReleaseYear: 1996
-	}, {
-		title: 'Atomic Blonde',
-		director: 'David Leitch',
-		genre: 'Action thriller',
-		BirthYear: 1975,
-		ReleaseYear: 2017
-	}, {
-		title: 'Scott Pilgrim vs. The World',
-		director: 'Edgar Wright',
-		genre: 'Romance',
-		BirthYear: 1974,
-		ReleaseYear: 2010
-	}, {
-		title: 'The Spectacular Now',
-		director: 'James Ponsoldt',
-		genre: 'Romance',
-		BirthYear: 1978,
-		ReleaseYear: 2013
-	}, {
-		title: 'Love, Simon',
-		director: 'Greg Berlanti',
-		genre: 'Romantic comedy-drama',
-		BirthYear: 1972,
-		ReleaseYear: (2018)
-	}, {
-		title: 'The Big Sick',
-		director: 'Michael Showalter',
-		genre: 'Romantic comedy',
-		BirthYear: 1970,
-		ReleaseYear: 2017	
-	}, {
-		title: 'Up',
-		director: 'Peter Hans Docter',
-		genre: 'Comedy',
-		BirthYear: 1968,
-		ReleaseYear: 2001
-	}, {
-		title: 'Inside Out',
-		director: 'Peter Hans Docter',
-		genre: 'Comedy',
-		BirthYear: 1968,
-		ReleaseYear: 2015
-	}, {
-		title: 'Anchorman: The Legend of Ron Burgundy',
-		director: 'Adam McKay',
-		genre: 'Satirical comedy movie',
-		BirthYear: 1968,
-		ReleaseYear: 2004
-	}, {
-		title: 'Sarafina',
-		director: 'Darrel Roodt',
-		genre: 'Drama, Musical',
-		BirthYear: 1962,
-		ReleaseYear: 1992
-	},],
+	title: 'Silence of the Lambs',
+	Description: 'A young FBI cadet must receive the help of an incarcerated and manipulative cannibal killer to help catch another serial killer.',
+	director: 'Jonathan Demme',
+	Birth: 1944,
+	Bio: "Robert Jonathan Demme was an American director, producer, and screenwriter.",
+	genre: 'Thriller',
+	Description: "Thriller film, also known as suspense film or suspense thriller, is a broad film genre that involves excitement and suspense in the audience.",
+	ImagePath: "https://m.media-amazon.com/images/M/MV5BNjNhZTk0ZmEtNjJhMi00YzFlLWE1MmEtYzM1M2ZmMGMwMTU4XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_QL75_UY148_CR0,0,100,148_.jpg",
+	"Featured": true
+
+}, {
+	title: 'UP',
+	Description: '78-year-old Carl Fredricksen travels to Paradise Falls in his house equipped with balloons, inadvertently taking a young stowaway.',
+	director: 'Pete Docter',
+	Birth: '1968-10-09',
+	Bio: 'Pete Docter is an American producer, writer, director, and an Oscar award winner.',
+	genre: 'Comedy',
+	Description: 'Comedy is a genre of film in which the main emphasis is on humor. These films are designed to make the audience laugh through amusement and most often work by exaggerating characteristics for humorous effect.',
+	Imagepath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPY24DkRHaP3jzZqhffFHjLV6uiIKdcdFh07J66u6X&usqp=CAE&s", "Featured": true
+
+}, {
+	title: 'Inside Out',
+	Description: "After young Riley is uprooted from her Midwest life and moved to San Francisco, her emotions conflict on how best to navigate a new city, house, and school.",
+	director: 'Peter Hans Docter',
+	Birth: "1968-10-09",
+	Bio: "Pete Docter is an American producer, writer, director, and an Oscar award winner.",
+	genre: 'Comedy',
+	Description: 'Comedy is a genre of film in which the main emphasis is on humor. These films are designed to make the audience laugh through amusement and most often work by exaggerating characteristics for humorous effect.',
+	Imagepath: " https://www.filmjabber.com/movie-poster-thumbs/inside-out-movie-poster-5133.jpg", "Featured": true,
 	
-	users = [{
-		username: 'Sylvanus Agbor',
-		id: '1',
-		birthYear: '1984',
-		favMovies: 'Drama, Musical',
-		email: 'XXXXX@yahoo.com',
-		password: 'mmmmm_6'
-	}, {
-		username: 'Blaise Okay',
-		id: '2',
-		birthYear: '1948',
-		favMovies: 'Comedy',
-		email: 'aaaaa@hotline.com',
-		password: 'fffff_4'
-	}, {
-		username: 'User 3',
-		id: '3',
-		birthYear: '1962',
-		favMovies: 'Drama, Musical',
-		email: 'sss@gmail.com',
-		password: 'zzzzz_6'
-		
-	}, {
-		username: 'User 4',
-		id: '4',
-		birthYear: '1955',
-		favMovies: 'Romance',
-		email: 'bbb@yahoo.com',
-		password: 'qqqqq_5'
-	}, {
-		username: 'User 5',
-		id: '5',
-		birthYear: '1992',
-		favMovies: 'Drama, Musical',
-		email: 'ccccc@yahoo.com',
-		password: 'yyyyy_5'
-	}],
+},
+	
+{
+	title: 'The Notebook',
+	Description: "Two young lovers are torn apart by war and class differences in the 1940s in this adaptation of Nicholas Sparks best-selling novel",
+	director: 'Nick Cassavetes',
+	Birth: '1959',
+	Bio: 'Nick Cassavetes Nicholas David Rowland Cassavetes is an American actor, director, and writer',
+	genre: 'Romance',
+	Description: 'Most often, romance as a film genre is understood to be love stories, emotion-driven stories that are primarily focused on the relationship between the main characters of the story.',
+	Imagepath: "https://m.media-amazon.com/images/M/MV5BMTk3OTM5Njg5M15BMl5BanBnXkFtZTYwMzA0ODI3._V1_.jpg", "Featured": false
+	
+}, {
+	title: 'Song One',
+	Description: "After a terrible accident puts her brother in a coma, a graduate student (Anne Hathaway) travels to New York to see him and subsequently becomes involved with the musician (Johnny Flynn) her brother idolized",
+	director: 'Kate Barker Froyland',
+	Birth: "1963",
+	Bio: "Kate Barker-Froyland is a writer and director whose films have played at numerous film festivals",
+	genre: 'Romance',
+	Description: 'Most often, romance as a film genre is understood to be love stories, emotion-driven stories that are primarily focused on the relationship between the main characters of the story.',
+	Imagepath: "https://m.media-amazon.com/images/I/71EEqLXvp1L._SY679_.jpg", "Featured": false
+}, {
+	title: 'War of the Worlds',
+	Description: "A divorced dockworker is forced to become the protective father he has never been when spaceships invade Earth and the danger mounts",
+	director: 'Steven Spielberg',
+	Birth: "1946",
+	Bio: "Steven Allan Spielberg is an American film director, producer, and screenwriter. He began his career in the New Hollywood era, and is currently the most commercially successful director",
+	genre: 'Action',
+	Description: "An action story is similar to adventure and the protagonist usually takes a risky turn, which leads to desperate situations such as explosions, fight scenes and daring escapes",
+	Imagepath: "https://flxt.tmsimg.com/assets/p36056_p_v13_al.jpg", "Featured": false
+	
+}, {
+	title: 'The Hateful Eight',
+	Description: "In post Civil War Wyoming, bounty hunters try to find shelter during a blizzard but get involved in a plot of betrayal and deception.",
+	director: 'Quentin Jerome Tarantino',
+	Birth: "1963",
+	Bio: "Quentin Jerome Tarantino is an American film director, screenwriter, producer, author, film critic, and actor.",
+	genre: 'Action',
+	Description: "An action story is similar to adventure and the protagonist usually takes a risky turn, which leads to desperate situations such as explosions, fight scenes and daring escapes",
+	ImagePath: "https://m.media-amazon.com/images/M/MV5BMjA1MTc1NTg5NV5BMl5BanBnXkFtZTgwOTM2MDEzNzE@._V1_QL75_UX100_CR0,0,100,148_.jpg"
+}, {
+	title: 'Something Evil',
+	Description: "A horror tale about a young couple moving into a Bucks County, Pennsylvania farmhouse, unaware that it is occupied by an unseen presence",
+	director: 'Steven Spielberg',
+	Birth: "1946",
+	Bio: "teven Allan Spielberg is an American film director, producer, and screenwriter. He began his career in the New Hollywood era, and is currently the most commercially successful director",
+	genre: 'Horror',
+	Description: "Horror is a genre of film in which a story is told to deliberately scare or frighten the audience, through suspense, violence or shock",
+	Imagepath: "https://m.media-amazon.com/images/M/MV5BNDc5NGMxM2QtNzBjZS00OGViLWExMzQtODNhMGNiYzlkZDk0XkEyXkFqcGdeQXVyNjQxODA2ODA@._V1_.jpg", "Featured": false
+
+}, {
+	title: 'Trainwreck',
+	Description: "A young magazine writer is made to believe that relationships and marriages hold no value. However, a chance meeting with a sports doctor forces her to rethink her principles.",
+	director: 'Judd Apatow',
+	Birth: "1967",
+	Bio: "Judd Apatow is an American producer, writer, director, actor and stand-up comedian",
+	genre: 'Comedy',
+	Description: "Comedy is a genre of film in which the main emphasis is on humor. These films are designed to make the audience laugh through amusement and most often work by exaggerating characteristics for humorous effect",
+	Imagepath: "https://upload.wikimedia.org/wikipedia/en/c/c5/Trainwreck_poster.jpg", "Featured": true
+},
+{
+	title: 'Knocked Up',
+	Description: "A one-night stand results in an unexpected pregnancy for Alison, who tries to make things work with the slacker who knocked her up",
+	director: 'Judd Apatow',
+	Birth: "1967",
+	Bio: "Judd Apatow is an American producer, writer, director, actor and stand-up comedian",
+	genre: 'Comedy',
+	Description: "Comedy is a genre of film in which the main emphasis is on humor. These films are designed to make the audience laugh through amusement and most often work by exaggerating characteristics for humorous effect",
+	Imagepath: "https://images-na.ssl-images-amazon.com/images/S/pv-target-images/69ce40cd343c922c4b9605038465de1d7f9c22adb4007a84396e7e2e8c330d66._RI_V_TTW_.jpg", "Featured": false
+
+	},
+];
+
+db.users.update(
+  { _id: ObjectId("615f16dbd003be4de2699e52") },
+	{ $set: { "FavoriteMovies": ObjectId("615f48d3547f63adb2089d89")}})
+
+user2 = {
+Username: 'Blaise Okay',
+Password: 'fffff_4',
+Email: 'aaaaa@hotline.com',
+birth_date: "1948-02-19",
+FavoriteMovies: [ObjectId("615ddb15d003be4de2699e4a"), ObjectId("615ddaedd003be4de2699e49")]
+}
+	
+User1 = {
+	Username: "Daniel Oke",
+	Password: "mmmmm_6",
+	Email: "XXXXX@yahoo.com",
+	Birthday: "1984-02-19",
+	FavoriteMovies: ObjectId[("615f47df547f63adb2089d88"), ("615f48d3547f63adb2089d89")]	
+},
+	
+
+	user2 = {
+		Username: "Blaise Okay",
+		Password: "fffff_4",
+		Email: "aaaaa@hotline.com",
+		birth_date: "1948-02-19",
+		FavoriteMovies: ObjectId[("615f4960547f63adb2089d8a"), ObjectId("615f49ac547f63adb2089d8b")]
+
+},
+
+
+  User3 = {
+		Username: "User 3",
+		Password: "zzzzz_6",
+		Email: "sss@gmail.com",
+		Birthday: "1962-02-19",
+		FavoriteMovies:	ObjectId[("615f4a65547f63adb2089d8c"), ObjectId("615f4ecd547f63adb2089d8d"), ObjectId("615f4f62547f63adb2089d8e")]				
+} ,
+
+
+
+user4 = {
+		Username: "User 4",
+		Password: "qqqqq_5",
+		Email: "bbb@yahoo.com",
+		Birthday: "1955-02-19",
+		FavoriteMovies: ObjectId[("615f5123547f63adb2089d8f"), ObjectId("615f520f547f63adb2089d90")]
+
+} ,
+
+
+user5 = {
+		Username: "User 5",
+		Password: "yyyyy_5",
+		Email: "ccccc@yahoo.com",
+		birth_date: "1992-02-19",
+	FavoriteMovies: ObjectId[("615f5480547f63adb2089d91"), ObjectId("615f5123547f63adb2089d8f")]
+}
+
+
 
 	directors = [{
-		name: 'Brian De Palma',
-		birthYear: '1940'
+		name: 'Judd Apatow',
+		Birth: "1967",
 	}, {
-		name: 'David Leitch',
-		birthYear: '1975'
+		name: 'Jonathan Demme',
+	Birth: 1944,
 	}, {
-		name: 'Edgar Wright',
-		birthYear: '1974'
+		name: 'Steven Spielberg',
+		Birth: "1946",
+		
 	}, {
-		name: 'James Ponsoldt',
-		birthYear: '1978'
+		name: 'Kate Barker Froyland',
+		Birth: "1963",
 	}, {
-		name: 'Greg Berlanti',
-		birthYear: '1972'
+		name: 'Quentin Jerome Tarantino',
+		Birth:"1963"
 	}, {
-		name: 'Michael Showalter',
-		birthYear: '1970'
-	}, {
-		name: 'Peter Hans Docter',
-		birthYear: '1968'
+		name: 'Nick Cassavetes',
+		Birth: '1959',
 	}, {
 		name: 'Peter Hans Docter',
 		birthYear: '1968'
-	}, {
-		name: 'Adam McKay',
-		birthYear: '1968'
-	}, {
-		name: 'Darrel Roodt',
-		birthYear: '1962'
 	}, ];
-//list of all the movies
-app.get('/movies', (req, res) => {
-	res.json(movies);
-});
-//list of all the directors
-app.get('/directors', (req, res) => {
-	res.json(directors);
-});
-//data on a movie by title
-app.get('/movies/:title', (req, res) => {
-	res.json(movies.find((movie) => {
-		return movie.title === req.params.title
-	}));
-});
-// data about the genre by title
-app.get('movies/:title', (req, res) => {
-	res.json(movies.find((movie) => {
-		return movie.title === req.params.title
-	}));
-});
-//list of all the users
+
+
+// Get all users
 app.get('/users', (req, res) => {
-	console.log();
-	res.json(users);
+  Users.find()
+    .then((users) => {
+      res.status(201).json(users);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
-//info on director by name
-app.get('/directors/:name', (req, res) => {
-	res.json(directors.find((director) => {
-		return director.name === req.params.name
-	}));
+
+// Get a user by username
+app.get('/users/:Username', (req, res) => {
+  Users.findOne({ Username: req.params.Username })
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
-//user's data by name
-app.get('/users/:username', (req, res) => {
-	res.json(users.find((user) => {
-		return user.username === req.params.username
-	}));
+
+
+// Update a user's info, by username
+
+app.put('/users/:Username', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+    {
+      Username: req.body.Username,
+      Password: req.body.Password,
+      Email: req.body.Email,
+      Birthday: req.body.Birthday
+    }
+  },
+  { new: true }, // This line makes sure that the updated document is returned
+  (err, updatedUser) => {
+    if(err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
 });
-//adding new user
+
+// Add a movie to a user's list of favorites
+app.post('/users/:Username/movies/:MovieID', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, {
+     $push: { FavoriteMovies: req.params.MovieID }
+   },
+   { new: true }, // This line makes sure that the updated document is returned
+  (err, updatedUser) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
+});
+
+//Add a user
+
 app.post('/users', (req, res) => {
-	let newUser = req.body;
-	if(!newUser.username) {
-		const message = 'Missing name in request body';
-		res.status(400).send(message);
-	} else {
-		newUser.id = uuid.v4();
-		users.push(newUser);
-		res.status(201).send(newUser);
-	};
+  Users.findOne({ Username: req.body.Username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + 'already exists');
+      } else {
+        Users
+          .create({
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+          })
+          .then((user) =>{res.status(201).json(user) })
+        .catch((error) => {
+          console.error(error);
+          res.status(500).send('Error: ' + error);
+        })
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
 });
-// Deletes a user by ID
-app.delete('/users/:id', (req, res) => {
-	let user = users.find((user) => {
-		return user.id === req.params.id
-	});
-	if(user) {
-		users = users.filter((obj) => {
-			return obj.id !== req.params.id
-		});
-		res.status(201).send('User ' + req.params.id + ' was deleted.');
-	}
+
+// GET requests for a specific movie by title
+  app.get('/movies/:Title', (req, res) => {
+    Movies.findOne({Title: req.params.Title})
+    .then((movie) => {
+      res.json(movie);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ', err);
+    });
+  });
+
+  //Get a list of all genres
+  app.get('/genre', (req, res) => {
+      Genre.find()
+        .then(genre => {
+          res.status(201).json(genre);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.status(500).send('Error: ' + err);
+        });
+    });
+
+  //get a specific genre by name
+  app.get('/genre/:Name', (req, res) => {
+    Movies.findOne({ 'Genre.Name': req.params.Name})
+    .then((genre) => {
+      res.json(genre.Genre);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+  });
+
+  //get list of all directors
+  app.get('/directors', (req, res) => {
+    Movies.find()
+      .then((director) => {
+        res.status(201).json(movies);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
+  });
+
+  //get director info by name
+  app.get('/director/:Name', (req, res) => {
+    Movies.findOne({ 'Director.Name': req.params.Name})
+    .then((director) => {
+      res.json(director.Director);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+  });
+
+// Delete a user by their username
+  app.delete('/users/:Username', (req, res) => {
+    Users.findOneAndRemove({ Username: req.params.Username})
+    .then((user) => {
+      if(!user) {
+        res.status(400).send(req.params.Username + ' was not found.');
+      } else {
+        res.status(200).send(req.params.Username + ' was deleted.');
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+  });
+
+  // Delete a movie from the favorite list of an user
+app.delete('/users/:Username/movies/:MovieID', (req, res) => {
+  Users.findOneAndUpdate({Username: req.params.Username}, {
+    $pull: {FavoriteMovies: req.params.MovieID}
+  },
+  {new: true},
+  (err, updatedUser) => {
+    if(err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
 });
-// Add a movie to favorites
-app.post('/users/:username/favorites', (req, res) => {
-	let newfavorite = req.body;
-	if(!newfavorite.title) {
-		const message = 'Missing title in request body';
-		res.status(400).send(message);
-	} else {
-		res.send('Succesful POST request - new title added to favorites.')
-	};
-});
-// Remove a movie from favorites
-app.delete('/users/:username/favorites', (req, res) => {
-	let toRemove = req.body;
-	if(!toRemove.title) {
-		const message = 'Missing title in request body';
-		res.status(400).send(message);
-	} else {
-		res.send('Succesful DELETE request - title removed from favorites.')
-	};
-});
-// Update the username
-app.put('/users/:username', (req, res) => {
-	let user = users.find((user) => {
-		return user.username === req.params.username
-	});
-	if(user) {
-		user[req.params.username] = parseInt(req.params.username);
-		res.status(201).send('Sucsessful PUT request: User ' + req.params.username + ' changed his username.');
-	} else {
-		res.status(404).send('User with the name ' + req.params.username + ' was not found.');
-	}
-});
-//list of favorites of a single user
-app.get('/users/:username/favorites', (req, res) => {
-	res.send('Successful GET request returning data on favorite movies of a single user.');
-});
-//GET route ‘movies’ that returns JSON Object
-app.get('/movies', (req, res) => {
-	res.json(movies);
-});
+
 
 //GET route ‘text’ that returns default textual response
 app.get('/documentation', (req, res) => {
@@ -256,3 +407,5 @@ app.use((err, req, res, next) => {
 app.listen(8080, () => {
 	console.log('movie_api is listening on port 8080.');
 });
+
+  
