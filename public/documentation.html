@@ -1,119 +1,128 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
 <head>
-	<meta charset="utf-8">
-	<title>movie_api</title>
-</head>
+	<meta charset="utf-8" />
+	<title>DOCUMENTATION</title>
+	<link rel="stylesheet" href="css/style.css" /> </head>
 
 <body>
-	<h1>movie_api</h1>
-	<h2>This API provides a data base of movies including their title, genre, director, date of release, description, etc.
-	  </h2>
-	<h3>These are the endpoints of the API:</h3>
+	<h1 class="heading">Documentation page</h1>
+	<p> "This is a MOVIE API for an application called “myFlix” that interacts with a database that stores data about different movies. The target audience for this API are front end developers who will build interactive front end designs that utilise this API. Another target group are movie lovers who appreciate an app that helps list all the information they need about their favorite movies" </p>
+	<p> It will be built using JavaScript, Node.js, Express, and MongoDB and will be accessed via commonly used HTTP methods like GET and POST. Similar methods (CRUD) will be used to retrieve data from your database and store that data in a non-relational way. </p>
 	<table>
-		<tr>
-			<th>Request</th>
-			<th>URL</th>
-			<th>Response</th>
-		</tr>
-		<tr>
-			<td>GET list of all movies</td>
-			<td>/movies</td>
-			<td>A JSON holding all the titles as objects, e.g.:
-				<br>{title: Sarafina,
-				<br>director: Darrel Roodt
-				<br>genre: Drama, Musical }</td>
-		</tr>
-		<tr>
-			<td>GET list of all users </td>
-			<td>/users</td>
-			<td>A JSON holding all the users as objects, e.g.:
-				<br>{title: User 1,
-				<br>id: 1}</td>
-		</tr>
-		<tr>
-			<td>GET list of all directors </td>
-			<td>/directors</td>
-			<td>A JSON holding all the directors as objects, e.g.:
-				<br>{name: Darrell Roodt,
-				<br>birthYear: 1962}</td>
-		</tr>
-		<tr>
-			<td>GET data about a single user by name </td>
-			<td>/users/:username</td>
-			<td>A JSON objects with user' data, e.g.:
-				<br>{name: 'Sylvanus Agbor',
-				<br>id: 1<br>
-				favMovies: 'Drama, Musical',<br>
-				email: 'XXXXXatyahoo.com',<br>
-				password: 'mmmmm_6'<br>}
-		</td>
-		</tr>
-
-		<tr>
-			<td>GET data about a movie by title</td>
-			<td>/movies/:title</td>
-			<td>A JSON object with title's data, e.g.:
-				<br>{title: 'Sarafina',
-				<br>director: Darrell Roodt
-				<br>genre: Drama, Musical}</td>
-		</tr>
-		<tr>
-			<td>GET data about director by name</td>
-			<td>/directors/:name</td>
-			<td>A JSON object with directors's data, e.g.:
-				<br>{name: Darrell Roodt,
-				<br>birthYear: 1962}</td>
-		</tr>
-		<tr>
-			<td>GET data about genre by title</td>
-			<td>/movies/:title</td>
-			<td>A JSON object with directors's data, e.g.:
-				<br>{genre: Drama, Musical }</td>
-		</tr>
-		<tr>
-			<td>GET list of favorite titles of a single user
-				<br>by user's name</td>
-			<td>/users/:username/favorites</td>
-			<td>A JSON holding all the favorite titles of a single user, e.g.:
-				<br>{title: Sarafina,
-				<br>director: Darrel Roodt
-				<br>genre: Drama, Musical}</td>
-		</tr>
-		<tr>
-			<td>ADD new user
-				<br>Input body: JSON object e.g. {name: Sylvanus Agbor}</td>
-			<td>/users</td>
-			<td>Confirmation message</td>
-		</tr>
-		<tr>
-			<td>DELETE users by id
-				<br>Input body: id number</td>
-			<td>/users/:id</td>
-			<td>Confirmation message</td>
-		</tr>
-		<tr>
-			<td>ADD a title to user's favs
-				<br>Input body: JSON with movie data, e.g.
-				<br>{title: Sarafina,
-				<br>director: Darrel Roodt
-				<br>genre: Drama, Musical }</td>
-			<td>/users/:username/favorites</td>
-			<td>A text message indicating whether a title was successfully added</td>
-		</tr>
-		<tr>
-			<td>Remove (DELETE) a title from user's favs
-				<br>Input: user's id</td>
-			<td>/users/:username/favorites</td>
-			<td>A text message indicating whether a title was successfully removed</td>
-		</tr>
-		<tr>
-			<td>Update (PUT) a username
-				<br>Input: new username</td>
-			<td>/users/:username</td>
-			<td>A text message indicating whether a username was successfully updated</td>
-		</tr>
+		<thead>
+			<tr>
+				<th>Business Logic</th>
+				<th>URL</th>
+				<th>HTTP Method</th>
+				<th>Request body data format</th>
+				<th>Response body data format</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Get a list of all movies</td>
+				<td>/movies</td>
+				<td>GET</td>
+				<td>None</td>
+				<td>A JSON object holding data about all movies</td>
+			</tr>
+			<tr>
+				<td>Get data about a single movie by title</td>
+				<td>/movies/[Title]</td>
+				<td>GET</td>
+				<td>None</td>
+				<td> A JSON object holding data about a single movie,
+					<br /> Example:
+					<br /> {
+					<br /> Title: 'Trainwreck', Description: "A young magazine writer is made to believe that relationships and marriages hold no value. However, a chance meeting with a sports doctor forces her to rethink her principles.", director: 'Judd Apatow', Birth: "1967", Bio: "Judd Apatow is an American producer, writer, director, actor and stand-up comedian", genre: 'Comedy', Description: "Comedy is a genre of film in which the main emphasis is on humor. These films are designed to make the audience laugh through amusement and most often work by exaggerating characteristics for humorous effect", Imagepath: "https://upload.wikimedia.org/wikipedia/en/c/c5/Trainwreck_poster.jpg", "Featured": true } </td>
+			</tr>
+			<tr>
+				<td>Get data about a Genre</td>
+				<td>/genres/[Name]</td>
+				<td>GET</td>
+				<td>None</td>
+				<td> A JSON object holding data about all the movies in specified genre </td>
+			</tr>
+			<tr>
+				<td>Get data about a Director</td>
+				<td>/directors/[Name]</td>
+				<td>GET</td>
+				<td>None</td>
+				<td> A JSON object holding data about a single director,
+					<br /> Example:
+					<br /> {
+					<br /> Director: 'Judd Apatow',
+					<br /> Birth: "1967",
+					<br /> Bio: "Judd Apatow is an American producer, writer, director, actor and stand-up comedian",
+					<br /> Movies: [ObjectId("615ddb15d003be4de2699e4a")] } </td>
+			</tr>
+			<tr>
+				<td>Add a new user by registering</td>
+				<td>/users</td>
+				<td>POST</td>
+				<td> A JSON object holding data about a user to add,
+					<br /> Example:
+					<br /> {
+					<br /> "Username": "",
+					<br /> "Password": "xxxxx_234",
+					<br /> "Email": "mmmmm@gmail.com",
+					<br /> "Birthday": "12/12/12" } </td>
+				<td> A JSON object holding data about a user sucessfully added,
+					<br /> Example:
+					<br /> {
+					<br /> "Username": "user 2",
+					<br /> "Password": "xxxxx_234",
+					<br /> "Email": "mmmm@gmail.com",
+					<br /> "Birthday": "12/12/12" } } </td>
+			</tr>
+			<tr>
+				<td>Update a user's info</td>
+				<td>/users/[username]</td>
+				<td>PUT</td>
+				<td> A JSON object holding data about user info to update,
+					<br /> Example:
+					<br /> {
+					<br /> "Email": "mmmmmm@gmail.com"
+					<br /> </td>
+				<td> A JSON object holding data about a user info sucessfully updated,
+					<br /> Example:
+					<br /> {
+					<br /> "Username": "user 2",
+					<br /> "Password": "xxxxx_234",
+					<br /> "Email": "mmmmm@gmail.com",
+					<br /> "Birthday": "12/12/12" } } </td>
+			</tr>
+			<tr>
+				<td>Add movie to user favorite list</td>
+				<td>/users/:Username/movies/:[MovieID]</td>
+				<td>POST</td>
+				<td>None</td>
+				<td> A JSON object holding data about a movie that was added,
+					<br /> Example:
+					<br /> {
+					<br /> "_id": "61433de06345a16076908387",
+					<br /> "Username": "user 2",
+					<br /> "Password": "xxxxx_234",
+					<br /> "Email": "mmmmm.com",
+					<br /> "Birthday": "2012-12-11T23:00:00.000Z",
+					<br /> "FavoriteMovies": [ "613757e0f001030c8c917801" ], "__v": 0 } </td>
+			</tr>
+			<tr>
+				<td>Remove movie from user favorite list</td>
+				<td>/users/:Username/movies/:[MovieID]</td>
+				<td>DELETE</td>
+				<td>None</td>
+				<td> A text message indicating whether the movie was successfully removed </td>
+			</tr>
+			<tr>
+				<td>Allow users to de-register</td>
+				<td>/users/[Username]</td>
+				<td>DELETE</td>
+				<td>None </td>
+				<td>A text message that indicating the user was successfully de-registered. </td>
+			</tr>
+		</tbody>
 	</table>
 </body>
 
