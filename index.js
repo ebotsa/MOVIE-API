@@ -11,7 +11,9 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
 app.use(morgan('common'));
 app.use(express.static('public'));
 
