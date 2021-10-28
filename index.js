@@ -4,13 +4,15 @@ const bodyParser = require('body-parser'),
 uuid = require('uuid');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
-
 const Movies = Models.Movie;
 const Users = Models.User;
+const Genres = Models.Genre;
+const Directors = Models.Directors;
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
@@ -18,11 +20,9 @@ app.use(morgan('common'));
 app.use(express.static('public'));
 
 // Get welcome page
-
 app.get('/', (req, res) => {
   res.send('Welcome to MyFlix!');
 }); 
-
 
 //Get a list of all movies
 app.get(
@@ -111,6 +111,7 @@ app.delete(
 // Update a user's info, by username
 
 app.put('/users/:Username',
+ 
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
@@ -133,37 +134,38 @@ app.put('/users/:Username',
 });
 
 //Add a user
-
-app.post('/users', (req, res) => {
-  Users.findOne({ Username: req.body.Username })
-    .then((user) => {
-      if (user) {
-        return res.status(400).send(req.body.Username + 'already exists');
-      } else {
-        Users
-          .create({
-            Username: req.body.Username,
-            Password: req.body.Password,
-            Email: req.body.Email,
-            Birthday: req.body.Birthday
-          })
-          .then((user) =>{res.status(200).json(user) })
-        .catch((error) => {
-          console.error(error);
-          res.status(500).send('Error: ' + error);
-        })
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send('Error: ' + error);
-    });
-});
-
+app.post('/users',
+   (req, res) => {
+ 
+    Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
+      .then((user) => {
+        if (user) {
+          //If the user is found, send a response that it already exists
+          return res.status(400).send(req.body.Username + ' already exists');
+        } else {
+          Users
+            .create({
+              Username: req.body.Username,
+              Password: hashedPassword,
+              Email: req.body.Email,
+              Birthday: req.body.Birthday
+            })
+            .then((user) => { res.status(200).json(user) })
+            .catch((error) => {
+              console.error(error);
+              res.status(500).send('Error: ' + error);
+            });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+      });
+  });
 
  // Get genre by name
 app.get(
-  "/genre/:Name",
+  "movie/genre/:Name",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Genre.findOne({ Name: req.params.Name })
@@ -176,11 +178,33 @@ app.get(
       });
   }
 );
-  
+
+  // Add a movie to favorites
+app.post('/users/:username/favorites', (req, res) => {
+  let newfavorite = req.body;
+
+  if (!newfavorite.title) {
+    const message = 'Missing title in request body';
+    res.status(400).send(message);
+  } else {
+    res.send('Succesful POST request - new title added to favs.')
+  };
+});
+// Remove a movie from favorites
+app.delete('/users/:username/favorites', (req, res) => {
+  let toRemove = req.body;
+
+  if (!toRemove.title) {
+    const message = 'Missing title in request body';
+    res.status(400).send(message);
+  } else {
+    res.send('Succesful DELETE request - title removed from favs.')
+  };
+});
 
 //Get director by name
 app.get(
-  "/directors/:Name",
+  "movie/directors/:Name",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Directors.findOne({ Name: req.params.Name })
@@ -202,5 +226,3 @@ app.use((err, req, res, next) => {
 app.listen(8080, () => {
 	console.log('movie_api is listening on port 8080.');
 });
-
-  
