@@ -135,7 +135,8 @@ app.put('/users/:Username',
 
 //Add a user
 app.post('/users',
-   (req, res) => {
+  (req, res) => {
+     //let hashedPassword = Users.hashPassword(req.body.Password);//
  
     Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
       .then((user) => {
@@ -143,10 +144,11 @@ app.post('/users',
           //If the user is found, send a response that it already exists
           return res.status(400).send(req.body.Username + ' already exists');
         } else {
+          
           Users
             .create({
               Username: req.body.Username,
-              Password: hashedPassword,
+              Password: req.body.Password,
               Email: req.body.Email,
               Birthday: req.body.Birthday
             })
@@ -179,27 +181,35 @@ app.get(
   }
 );
 
-  // Add a movie to favorites
-app.post('/users/:username/favorites', (req, res) => {
-  let newfavorite = req.body;
-
-  if (!newfavorite.title) {
-    const message = 'Missing title in request body';
-    res.status(400).send(message);
-  } else {
-    res.send('Succesful POST request - new title added to favs.')
-  };
+  // Add a movie to a user's list of favorites
+app.post('/users/:Username/movies/:MovieID', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, {
+     $push: { FavoriteMovies: req.params.MovieID }
+   },
+   { new: true }, // This line makes sure that the updated document is returned
+  (err, updatedUser) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
 });
 // Remove a movie from favorites
-app.delete('/users/:username/favorites', (req, res) => {
-  let toRemove = req.body;
-
-  if (!toRemove.title) {
-    const message = 'Missing title in request body';
-    res.status(400).send(message);
-  } else {
-    res.send('Succesful DELETE request - title removed from favs.')
-  };
+app.delete('/users/:Username/movies/:MovieID', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, {
+     $pull: { FavoriteMovies: req.params.MovieID }
+   },
+   { new: true }, // This line makes sure that the updated document is returned
+  (err, updatedUser) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
 });
 
 //Get director by name
