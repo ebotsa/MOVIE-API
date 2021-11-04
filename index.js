@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser'),
 	uuid = require('uuid');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -20,11 +21,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
-const cors = require('cors');
 app.use(cors());
-let auth = require('./auth')(app);
 const passport = require('passport');
+app.use(passport.initialize());
 require('./passport');
+let auth = require('./auth')(app);
 app.use(morgan('common'));
 app.use(express.static('public'));
 // Get welcome page
