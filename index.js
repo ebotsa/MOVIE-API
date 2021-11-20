@@ -11,6 +11,7 @@ const Genres = Models.Genre;
 const Directors = Models.Directors;
 const {check, validationResult
 } = require('express-validator');
+
 //mongoose.connect('mongodb://localhost:27017/myFlixDB', {
 	//useNewUrlParser: true,
 	//useUnifiedTopology: true
