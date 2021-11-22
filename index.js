@@ -15,7 +15,7 @@ const {check, validationResult
 //mongoose.connect('mongodb://localhost:27017/myFlixDB', {
 	//useNewUrlParser: true,
 	//useUnifiedTopology: true
-//});
+//}); 
 mongoose.connect(process.env.CONNECTION_URI, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true
@@ -114,7 +114,7 @@ app.put('/users/:Username', passport.authenticate("jwt", {
 			}
 		}, {
 			new: true
-		}, // This line makes sure that the updated document is returned
+		}, // This line makes sure the updated document is returned
 		(err, updatedUser) => {
 			if(err) {
 				console.error(err);
